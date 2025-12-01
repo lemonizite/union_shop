@@ -22,20 +22,19 @@ class HomePage extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
-                          ),
+                    child: Stack(
+                      children: [
+                        Image.network(
+                          'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+                          width: double.infinity,
+                          height: double.infinity,
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(color: Colors.grey[900]);
+                          },
                         ),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.7),
-                        ),
-                      ),
+                        Container(color: Colors.black.withOpacity(0.7)),
+                      ],
                     ),
                   ),
                   Positioned(
