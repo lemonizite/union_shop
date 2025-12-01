@@ -58,8 +58,23 @@ class CartPage extends StatelessWidget {
                           itemBuilder: (_, i) {
                             final CartItem item = items[i];
                             return ListTile(
-                              leading: Image.network(item.product.imageUrl,
-                                  width: 56, height: 56, fit: BoxFit.cover),
+                              leading: Image.network(
+                                item.product.imageUrl,
+                                width: 56,
+                                height: 56,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    width: 56,
+                                    height: 56,
+                                    color: Colors.grey[200],
+                                    child: const Center(
+                                      child: Icon(Icons.image_not_supported,
+                                          size: 20, color: Colors.grey),
+                                    ),
+                                  );
+                                },
+                              ),
                               title: Text(item.product.name),
                               subtitle: Text(
                                   'Size: ${item.selectedSize} • Color: ${item.selectedColor}'),
