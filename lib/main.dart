@@ -1,3 +1,4 @@
+import 'package:union_shop/pages/collection_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:union_shop/constants/app_constants.dart';
@@ -44,6 +45,30 @@ class UnionShopApp extends StatelessWidget {
           AppRoutes.login: (context) => const LoginPage(),
           AppRoutes.printShack: (context) => const PrintShackPage(),
           '/signup': (context) => const SignupPage(),
+        },
+        onGenerateRoute: (settings) {
+          final uri = Uri.parse(settings.name ?? '');
+          // handle /collection/:id
+          if (uri.pathSegments.isNotEmpty &&
+              uri.pathSegments[0] == 'collection') {
+            final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
+            if (id != null) {
+              return MaterialPageRoute(
+                builder: (_) => CollectionDetailPage(collectionId: id),
+                settings: settings,
+              );
+            }
+          }
+
+          // if a product argument is provided (from the collection page)
+          if (settings.name == AppRoutes.product && settings.arguments is Map) {
+            final args = settings.arguments as Map;
+            final String? pid = args['productId'] as String?;
+            return MaterialPageRoute(
+                builder: (_) => ProductPage(productId: pid));
+          }
+
+          return null; // fallback to default routes
         },
       ),
     );
