@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/constants/app_constants.dart';
+import 'package:union_shop/services/cart_service.dart';
 
 class Navbar extends StatelessWidget {
   final String currentRoute;
@@ -96,19 +98,48 @@ class Navbar extends StatelessWidget {
                             _navigateTo(context, AppRoutes.login);
                           },
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.shopping_bag_outlined,
-                            size: 18,
-                            color: Colors.grey,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(
-                            minWidth: 32,
-                            minHeight: 32,
-                          ),
-                          onPressed: () {
-                            _navigateTo(context, AppRoutes.cart);
+                        // Cart icon with badge
+                        Consumer<CartService>(
+                          builder: (context, cartService, _) {
+                            final count = cartService.itemCount;
+                            return IconButton(
+                              icon: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  const Icon(Icons.shopping_bag_outlined,
+                                      size: 18, color: Colors.grey),
+                                  if (count > 0)
+                                    Positioned(
+                                      top: -6,
+                                      right: -10,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                          color: Colors.redAccent,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        constraints: const BoxConstraints(
+                                            minWidth: 16, minHeight: 16),
+                                        child: Center(
+                                          child: Text(
+                                            count.toString(),
+                                            style: const TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              padding: const EdgeInsets.all(8),
+                              constraints: const BoxConstraints(
+                                  minWidth: 32, minHeight: 32),
+                              onPressed: () {
+                                _navigateTo(context, AppRoutes.cart);
+                              },
+                            );
                           },
                         ),
                         IconButton(
