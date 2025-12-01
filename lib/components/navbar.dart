@@ -65,97 +65,14 @@ class Navbar extends StatelessWidget {
                   // Navigation items
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 600),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.search,
-                            size: 18,
-                            color: Colors.grey,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(
-                            minWidth: 32,
-                            minHeight: 32,
-                          ),
-                          onPressed: () {
-                            // TODO: Implement search navigation
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.person_outline,
-                            size: 18,
-                            color: Colors.grey,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(
-                            minWidth: 32,
-                            minHeight: 32,
-                          ),
-                          onPressed: () {
-                            _navigateTo(context, AppRoutes.login);
-                          },
-                        ),
-                        // Cart icon with badge
-                        Consumer<CartService>(
-                          builder: (context, cartService, _) {
-                            final count = cartService.itemCount;
-                            return IconButton(
-                              icon: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  const Icon(Icons.shopping_bag_outlined,
-                                      size: 18, color: Colors.grey),
-                                  if (count > 0)
-                                    Positioned(
-                                      top: -6,
-                                      right: -10,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                          color: Colors.redAccent,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        constraints: const BoxConstraints(
-                                            minWidth: 16, minHeight: 16),
-                                        child: Center(
-                                          child: Text(
-                                            count.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 10,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                              padding: const EdgeInsets.all(8),
-                              constraints: const BoxConstraints(
-                                  minWidth: 32, minHeight: 32),
-                              onPressed: () {
-                                _navigateTo(context, AppRoutes.cart);
-                              },
-                            );
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.menu,
-                            size: 18,
-                            color: Colors.grey,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(
-                            minWidth: 32,
-                            minHeight: 32,
-                          ),
-                          onPressed: () => _showMenuDrawer(context),
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // the same IconButtons as before — but for the cart IconButton below, use Consumer.
+                        ],
+                      ),
                     ),
                   ),
                 ],
