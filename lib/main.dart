@@ -47,18 +47,31 @@ class UnionShopApp extends StatelessWidget {
           '/signup': (context) => const SignupPage(),
         },
         onGenerateRoute: (settings) {
-          final uri = Uri.parse(settings.name ?? '');
-          // handle /collection/:id
-          if (uri.pathSegments.isNotEmpty &&
-              uri.pathSegments[0] == 'collection') {
-            final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
-            if (id != null) {
-              return MaterialPageRoute(
-                builder: (_) => CollectionDetailPage(collectionId: id),
-                settings: settings,
-              );
-            }
-          }
+  final uri = Uri.parse(settings.name ?? '');
+  // /collection/:id
+  if (uri.pathSegments.isNotEmpty && uri.pathSegments[0] == 'collection') {
+    final id = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
+    if (id != null) {
+      return MaterialPageRoute(
+        builder: (_) => CollectionDetailPage(collectionId: id),
+        settings: settings,
+      );
+    }
+  }
+
+  // /product with arguments
+  if (settings.name == AppRoutes.product) {
+    if (settings.arguments is Map) {
+      final args = settings.arguments as Map;
+      final String? pid = args['productId'] as String?;
+      return MaterialPageRoute(builder: (_) => ProductPage(productId: pid));
+    }
+    // fallback
+    return MaterialPageRoute(builder: (_) => const ProductPage());
+  }
+
+  return null; // fall back to routes map
+},
 
           // if a product argument is provided (from the collection page)
           if (settings.name == AppRoutes.product && settings.arguments is Map) {
