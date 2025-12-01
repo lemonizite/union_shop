@@ -291,13 +291,23 @@ class _CollectionCard extends StatelessWidget {
                   return Expanded(
                     child: Container(
                       margin: EdgeInsets.only(
-                          left: idx == 0 ? 0 : 2,
-                          right: idx == sampleProducts.length - 1 ? 0 : 2),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(p.imageUrl),
-                          fit: BoxFit.cover,
-                        ),
+                        left: idx == 0 ? 0 : 2,
+                        right: idx == sampleProducts.length - 1 ? 0 : 2,
+                      ),
+                      child: Image.network(
+                        p.imageUrl,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.grey[200],
+                            child: const Center(
+                              child: Icon(Icons.image_not_supported,
+                                  color: Colors.grey),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   );
