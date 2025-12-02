@@ -47,6 +47,28 @@ class Footer extends StatelessWidget {
                   _buildFooterLink('About Us'),
                   _buildFooterLink('Collections'),
                   _buildFooterLink('Sale'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.search);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        children: [
+                          Icon(Icons.search,
+                              size: 14, color: AppColors.greyDark),
+                          SizedBox(width: 4),
+                          Text(
+                            'Search',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.greyDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Column(

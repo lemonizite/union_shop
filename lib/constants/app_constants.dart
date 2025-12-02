@@ -19,6 +19,7 @@ class AppRoutes {
   static const String login = '/login';
   static const String signup = '/signup';
   static const String printShack = '/print-shack';
+  static const String search = '/search';
 }
 
 class AppStrings {

@@ -12,6 +12,7 @@ import 'package:union_shop/pages/cart_page.dart';
 import 'package:union_shop/pages/login_page.dart';
 import 'package:union_shop/pages/print_shack_page.dart';
 import 'package:union_shop/pages/signup_page.dart';
+import 'package:union_shop/pages/search_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -45,6 +46,7 @@ class UnionShopApp extends StatelessWidget {
           AppRoutes.login: (context) => const LoginPage(),
           AppRoutes.printShack: (context) => const PrintShackPage(),
           '/signup': (context) => const SignupPage(),
+          AppRoutes.search: (context) => const SearchPage(),
         },
         onGenerateRoute: (settings) {
           final uri = Uri.parse(settings.name ?? '');

@@ -13,7 +13,7 @@ class Navbar extends StatelessWidget {
 
   void _navigateTo(BuildContext context, String route) {
     if (currentRoute != route) {
-      Navigator.pushReplacementNamed(context, route);
+      Navigator.pushNamed(context, route);
     }
   }
 
@@ -70,7 +70,64 @@ class Navbar extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // the same IconButtons as before — but for the cart IconButton below, use Consumer.
+                          IconButton(
+                            icon: const Icon(Icons.search),
+                            onPressed: () {
+                              Navigator.pushNamed(context, AppRoutes.search);
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.account_circle_outlined),
+                            onPressed: () {
+                              Navigator.pushNamed(context, AppRoutes.login);
+                            },
+                          ),
+                          Consumer<CartService>(
+                            builder: (context, cartService, child) {
+                              final itemCount = cartService.itemCount;
+                              return Stack(
+                                children: [
+                                  IconButton(
+                                    icon:
+                                        const Icon(Icons.shopping_bag_outlined),
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, AppRoutes.cart);
+                                    },
+                                  ),
+                                  if (itemCount > 0)
+                                    Positioned(
+                                      right: 0,
+                                      top: 0,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(4),
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.primaryColor,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 18,
+                                          minHeight: 18,
+                                        ),
+                                        child: Text(
+                                          '$itemCount',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              );
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.menu),
+                            onPressed: () => _showMenuDrawer(context),
+                          ),
                         ],
                       ),
                     ),
