@@ -18,16 +18,11 @@ class CartService extends ChangeNotifier {
   }
 
   Cart get cart => _cart;
-
   int get itemCount => _cart.itemCount;
-
   double get totalPrice => _cart.totalPrice;
-
   double get grandTotal => _cart.grandTotal;
-
   bool get isEmpty => _cart.isEmpty;
 
-  // Add item to cart
   void addItem(Product product, int quantity, String size, String color) {
     final cartItem = CartItem(
       product: product,
@@ -40,33 +35,25 @@ class CartService extends ChangeNotifier {
     _persistCart();
   }
 
-  // Remove item from cart
   void removeItem(String productId, String size, String color) {
     _cart = _cart.removeItem(productId, size, color);
     notifyListeners();
     _persistCart();
   }
 
-  // Update item quantity
   void updateItemQuantity(
-    String productId,
-    String size,
-    String color,
-    int newQuantity,
-  ) {
+      String productId, String size, String color, int newQuantity) {
     _cart = _cart.updateItemQuantity(productId, size, color, newQuantity);
     notifyListeners();
     _persistCart();
   }
 
-  // Clear entire cart
   void clearCart() {
     _cart = _cart.clear();
     notifyListeners();
     _persistCart();
   }
 
-  // Get cart items
   List<CartItem> getItems() => _cart.items;
 
   Future<void> _persistCart() async {
@@ -82,7 +69,7 @@ class CartService extends ChangeNotifier {
           .toList();
       await prefs.setString(_storageKey, jsonEncode(payload));
     } catch (_) {
-      // Ignore persistence errors
+      // Ignore persistence errors (e.g., tests without plugin)
     }
   }
 
@@ -117,7 +104,7 @@ class CartService extends ChangeNotifier {
       _cart = Cart(items: restored);
       notifyListeners();
     } catch (_) {
-      // Ignore restore errors
+      // Ignore restore errors (e.g., MissingPluginException in tests)
     }
   }
 }
