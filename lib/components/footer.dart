@@ -9,131 +9,155 @@ class Footer extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: Colors.grey[50],
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'UNION SHOP',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.black,
-            ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'Your go-to shop for all your needs',
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.greyDark,
-            ),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: const EdgeInsets.all(40),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool isWide = constraints.maxWidth >= 900;
+
+          if (isWide) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: _buildOpeningHours()),
+                const SizedBox(width: 60),
+                Expanded(child: _buildHelpInfo()),
+              ],
+            );
+          }
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'LINKS',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildFooterLink('About Us'),
-                  _buildFooterLink('Collections'),
-                  _buildFooterLink('Sale'),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.search);
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                      child: Row(
-                        children: [
-                          Icon(Icons.search,
-                              size: 14, color: AppColors.greyDark),
-                          SizedBox(width: 4),
-                          Text(
-                            'Search',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: AppColors.greyDark,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'SUPPORT',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildFooterLink('Contact Us'),
-                  _buildFooterLink('FAQ'),
-                  _buildFooterLink('Returns'),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'LEGAL',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildFooterLink('Privacy'),
-                  _buildFooterLink('Terms'),
-                  _buildFooterLink('Cookies'),
-                ],
-              ),
+              _buildOpeningHours(),
+              const SizedBox(height: 40),
+              _buildHelpInfo(),
             ],
-          ),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.only(top: 16),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(color: Colors.grey[300]!),
-              ),
-            ),
-            child: const Text(
-              '© 2025 Union Shop. All rights reserved.',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-              ),
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildFooterLink(String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+  Widget _buildOpeningHours() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Opening Hours',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.black,
+          ),
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          '❄️ Winter Break Closure Dates ❄️',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: AppColors.greyDark,
+          ),
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          'Closing 4pm 19/12/2025\nReopening 10am 05/01/2026\nLast post date: 12pm on 18/12/2025',
+          style: TextStyle(
+            fontSize: 12,
+            color: AppColors.greyDark,
+            height: 1.6,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          width: double.infinity,
+          height: 1,
+          color: Colors.grey[300],
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          '(Term Time)',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: AppColors.greyDark,
+          ),
+        ),
+        const Text(
+          'Monday - Friday 10am - 4pm',
+          style: TextStyle(
+            fontSize: 12,
+            color: AppColors.greyDark,
+          ),
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          '(Outside of Term Time / Consolidation Weeks)',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: AppColors.greyDark,
+          ),
+        ),
+        const Text(
+          'Monday - Friday 10am - 3pm',
+          style: TextStyle(
+            fontSize: 12,
+            color: AppColors.greyDark,
+          ),
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          'Purchase online 24/7',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: AppColors.black,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHelpInfo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Help and Information',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.black,
+          ),
+        ),
+        const SizedBox(height: 12),
+        _footerLink('Search'),
+        const SizedBox(height: 8),
+        _footerLink('Terms & Conditions of Sale Policy'),
+        const SizedBox(height: 24),
+        const Text(
+          '© 2025 Union Shop. All rights reserved.',
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _footerLink(String text) {
+    return GestureDetector(
+      onTap: () {
+        // Links are placeholder for now
+      },
       child: Text(
         text,
         style: const TextStyle(
-          fontSize: 12,
+          fontSize: 13,
           color: AppColors.greyDark,
+          decoration: TextDecoration.underline,
         ),
       ),
     );
