@@ -39,7 +39,7 @@ test/ contains: home_test.dart, product_test.dart, pages/cart_page_test.dart, an
 
 ### Installation
 
-1. Clone the repository: git clone https://github.com/YOUR-USERNAME/union_shop.git then cd union_shop
+1. Clone the repository: git clone https://github.com/lemonizite/union_shop.git then cd union_shop
 
 2. Install dependencies: flutter pub get
 
@@ -109,7 +109,7 @@ Potential improvements for future versions: Firebase Authentication integration,
 
 ## Credits
 
-Developer: [Your Name]
+Developer: Joshua Wilton
 Institution: University of Portsmouth
 Course: M30235 Programming Applications and Programming Languages
 Academic Year: 2024-2025
